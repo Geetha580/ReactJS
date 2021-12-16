@@ -4,34 +4,36 @@ import Joi from "joi-browser";
 class UpdateGasBooking extends React.Component {
   state = {
     gasbooking: {
+      gasbookingId:"",
+      localDate:"",
       customerId: "",
       status: "",
       bill: "950",
     },
-    // errors: {},
-    // errMsg: "",
+    errors: {},
+    errMsg: "",
   };
-  // schema = {
-  //   customerId: Joi.number().integer().required(),
-  //   status: Joi.string(),
-  //   bill: Joi.number().required(),
-  // };
+  schema = {
+    gasBookingId:Joi.number().integer(),
+    localDate:Joi.date().raw(),
+    customerId: Joi.number().integer().required(),
+    status: Joi.string().required(),
+    bill: Joi.number().required(),
+  };
 
-  // validate = () => {
-  //   const errors = {};
-  //   const result = Joi.validate(this.state.gasbooking, this.schema, {
-  //     abortEarly: false,
-  //   });
-  //   console.log(result);
-  //   // setting error messages to error properties
-  //   // ex: errors[username] = "username is required";
-  //   // ex: errors[password] = "password is required";
-  //   if (result.error != null)
-  //     for (let item of result.error.details) {
-  //       errors[item.path[0]] = item.message;
-  //     }
-  //   return Object.keys(errors).length === 0 ? null : errors;
-  // };
+  validate = () => {
+    const errors = {};
+    const result = Joi.validate(this.state.gasbooking, this.schema, {
+      abortEarly: false,
+    });
+    console.log(result);
+    // setting error messages to error properties
+    if (result.error != null)
+      for (let item of result.error.details) {
+        errors[item.path[0]] = item.message;
+      }
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
   componentDidMount() {
     axios
       .get(
@@ -56,9 +58,9 @@ class UpdateGasBooking extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log("handleSubmit");
-    // this.setState({ errors: this.validate() });
-    // console.log(this.state.errors);
-    // if (this.state.errors) return;
+    this.setState({ errors: this.validate() });
+    console.log(this.state.errors);
+    if (this.state.errors) return;
     // Send post request to rest api
     axios
       .put(
@@ -82,14 +84,14 @@ class UpdateGasBooking extends React.Component {
   };
   render() {
     const { customerId, status, bill } = this.state.gasbooking;
-    //const { errors, errMsg } = this.state;
+    const { errors, errMsg } = this.state;
     return (
       <div>
-        {/* {errMsg && (
+        {errMsg && (
           <div className="alert alert-danger" role="alert">
             {errMsg}
           </div>
-        )} */}
+        )}
         <form
           onSubmit={this.handleSubmit}
           className="w-50 mx-auto shadow p-3 mb-5 bg-body rounded mt-3"
@@ -107,7 +109,7 @@ class UpdateGasBooking extends React.Component {
               name="customerId"
               onChange={this.handleChange}
             />
-            
+            {errors && <small>{errors.customerId}</small>}
           </div>
           <div className="mb-3">
             <label htmlFor="status" className="form-label">
@@ -123,7 +125,7 @@ class UpdateGasBooking extends React.Component {
               onChange={this.handleChange}
               
             />
-            
+            {errors && <small>{errors.status}</small>}
           </div>
           <div className="mb-3">
             <label htmlFor="bill" className="form-label">
@@ -139,7 +141,7 @@ class UpdateGasBooking extends React.Component {
               onChange={this.handleChange}
               disabled
             />
-            
+            {errors && <small>{errors.bill}</small>}
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">
