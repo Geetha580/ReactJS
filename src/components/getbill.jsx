@@ -4,14 +4,9 @@ class GetBill extends React.Component {
   state = {
     gasBooking: {},
     customerId: "",
+    flag:false,
   };
   handleChange = (event) => {
-    // copy state student object to local variable student
-    //const gasbooking = { ...this.state.gasbooking };
-
-    // update local student object with values entered by user
-    //gasbooking[event.target.name] = event.target.value;
-
     // update state object using setState method
     this.setState({ customerId: event.target.value });
   };
@@ -23,27 +18,35 @@ class GetBill extends React.Component {
       .get(`http://localhost:8080/gasbooking/getbill/${this.state.customerId}`)
       .then((res) => {
         console.log(res);
-        this.setState({ gasBooking: res.data });
-       alert("the bill amount of the customer id"+this.state.customerId+"is"+this.state.gasBooking.bill)
+        this.setState({ 
+          ...this.state,
+          flag:true,
+          gasBooking: res.data });
+        alert(
+          "the bill amount of the customer id" +
+            this.state.customerId +
+            "is" +
+            this.state.gasBooking.bill
+        );
       })
       .catch((err) => console.log(err));
   };
   render() {
-      const customerId=this.state.customerId;
+    const customerId = this.state.customerId;
     return (
       <div>
         <form
           onSubmit={this.handleSubmit}
           className="w-50 mx-auto shadow p-3 mb-5 bg-body rounded mt-3"
         >
-            <div className="mb-3">
-                <h3>enter customer id</h3>
+          <div className="mb-3">
+            <h3>enter customer id</h3>
             <label htmlFor="customerId" className="form-label">
               CustomerId
             </label>
             <input
               type="number"
-              className="form-control"
+              className="form-control "
               id="customerId"
               aria-describedby="emailHelp"
               value={customerId}
@@ -57,11 +60,11 @@ class GetBill extends React.Component {
             </button>
           </div>
         </form>
-        <table className="table table-dark  w-75 mx-auto">
-
-            <tbody>           
-             <tr >
-              <th>gID   </th>
+        {this.state.customerId && this.state.flag===true &&
+        <table className="table table-striped table-bordered  w-75 mx-auto">
+          <tbody>
+            <tr>
+              <th>GasBookingID </th>
               <td>{this.state.gasBooking.gasBookingId}</td>
             </tr>
             <tr>
@@ -73,11 +76,11 @@ class GetBill extends React.Component {
               <td>{this.state.gasBooking.status}</td>
             </tr>
             <tr>
-               <th>bill  </th>
-               <td>{this.state.gasBooking.bill}</td>
+              <th>Bill Amount </th>
+              <td>{this.state.gasBooking.bill}</td>
             </tr>
-            </tbody>
-        </table>
+          </tbody>
+        </table>}
       </div>
     );
   }

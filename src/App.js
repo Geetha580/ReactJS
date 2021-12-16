@@ -9,6 +9,7 @@ import {Route,Switch,Redirect} from "react-router-dom";
 import UpdateGasBooking from './components/updategasbooking';
 import AddGasBooking from './components/addgasbooking';
 import GetBill from './components/getbill';
+import Booking from './components/booking';
 function App() {
   return (<div className="App">
     <Nav />
@@ -20,6 +21,7 @@ function App() {
       <Route path="/gasbooking/update/:gasBookingId" component={UpdateGasBooking} />
       <Route path="/gasbookings" component={GasBooking}/>
       <Route path="/getbills" component={GetBill}/>
+      <Route path="/booking" component={Booking}/>
       <Redirect exact path="/" to="/home" />
       <Route component={PageNotFound}/>
     </Switch> 

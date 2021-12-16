@@ -38,22 +38,27 @@ class GasBooking extends React.Component {
   render() {
     return (
       <div className="w-75 mx-auto">
-        <Link to="/gasbooking/add" className="btn btn-outline-info float-end mt-3">
+        <Link
+          to="/gasbooking/add"
+          className="btn btn-outline-info float-end mt-3 m-2"
+        >
           Add
         </Link>
-       <Link to="/getbills" className="btn btn-outline-info float-end mt-3">
+        <Link
+          to="/getbills"
+          className="btn btn-outline-info float-end mt-3 m-2"
+        >
           Get Bill
-         </Link>
-        
-        <table className="table  table-striped ">
-          <thead >
+        </Link>
+
+        <table className="table  table-striped">
+          <thead className="table-secondary">
             <tr className="info">
               <th>gID</th>
               <th>Localdate</th>
               <th>status</th>
               <th>bill</th>
               <th></th>
-              
             </tr>
           </thead>
           <tbody>
@@ -67,18 +72,18 @@ class GasBooking extends React.Component {
                 <td>
                   <Link
                     to={`/gasbooking/update/${g.gasBookingId}`}
-                    className="btn btn-outline-primary"
+                    className="btn btn-sm btn-outline-success"
                   >
-                    Update
+                    <i class="fas fa-edit" />
+                    &nbsp;&nbsp; Update
                   </Link>
-                  
                   <button
-                    className="btn btn-outline-danger"
+                    className="btn btn-sm btn-outline-danger"
                     onClick={() => this.handleDelete(g.gasBookingId)}
                   >
-                    Delete
+                    <i class="fas fa-trash" />
+                    &nbsp;&nbsp; Delete
                   </button>
-                  
                 </td>
               </tr>
             ))}
