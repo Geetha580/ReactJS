@@ -17,7 +17,7 @@ class UpdateGasBooking extends React.Component {
     gasBookingId:Joi.number().integer(),
     localDate:Joi.date().raw(),
     customerId: Joi.number().integer().required(),
-    status: Joi.string().required(),
+    status: Joi.string().min(4).max(10).required(),
     bill: Joi.number().required(),
   };
 
@@ -109,7 +109,7 @@ class UpdateGasBooking extends React.Component {
               name="customerId"
               onChange={this.handleChange}
             />
-            {errors && <small>{errors.customerId}</small>}
+            <div className="text-danger">{errors && <small>{errors.customerId}</small>}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="status" className="form-label">
@@ -125,7 +125,7 @@ class UpdateGasBooking extends React.Component {
               onChange={this.handleChange}
               
             />
-            {errors && <small>{errors.status}</small>}
+            <div className="text-danger">{errors && <small>{errors.status}</small>}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="bill" className="form-label">
@@ -141,7 +141,7 @@ class UpdateGasBooking extends React.Component {
               onChange={this.handleChange}
               disabled
             />
-            {errors && <small>{errors.bill}</small>}
+            <div className="text-danger">{errors && <small>{errors.bill}</small>}</div>
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">

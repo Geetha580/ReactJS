@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "mdbootstrap/css/mdb.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(

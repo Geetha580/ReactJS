@@ -42,6 +42,7 @@ class GasBooking extends React.Component {
           to="/gasbooking/add"
           className="btn btn-outline-info float-end mt-3 m-2"
         >
+           
           Add
         </Link>
         <Link
@@ -54,10 +55,10 @@ class GasBooking extends React.Component {
         <table className="table  table-striped">
           <thead className="table-secondary">
             <tr className="info">
-              <th>gID</th>
+              <th>GasBookingID</th>
               <th>Localdate</th>
               <th>status</th>
-              <th>bill</th>
+              <th>Bill Amount</th>
               <th></th>
             </tr>
           </thead>

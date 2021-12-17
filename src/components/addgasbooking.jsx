@@ -13,7 +13,7 @@ class AddGasBooking extends React.Component {
   };
   schema = {
     customerId:Joi.number().integer().required(),
-    status:Joi.string(),
+    status:Joi.string().min(4).max(10),
     bill:Joi.number().required(),
   };
 
@@ -75,11 +75,6 @@ class AddGasBooking extends React.Component {
     return (
       <div>
         <h3>Add GasBooking Details</h3>
-        {errMsg && (
-          <div className="alert alert-danger" role="alert">
-            {errMsg}
-            </div>
-            )}
         <form
           onSubmit={this.handleSubmit}
           className="w-50 mx-auto shadow p-3 mb-5 bg-body rounded mt-3"
@@ -98,7 +93,7 @@ class AddGasBooking extends React.Component {
               onChange={this.handleChange}
               
             />
-             {errors && <small>{errors.customerId}</small>}
+            <div className="text-danger"> {errors && <small>{errors.customerId}</small>}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="status" className="form-label">
@@ -114,7 +109,7 @@ class AddGasBooking extends React.Component {
               onChange={this.handleChange}
               disabled
             />
-            {errors && <small>{errors.status}</small>}
+             <div className="text-danger">{errors && <small>{errors.status}</small>}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="bill" className="form-label">
@@ -130,7 +125,7 @@ class AddGasBooking extends React.Component {
               onChange={this.handleChange}
               disabled
             />
-            {errors && <small>{errors.bill}</small>}
+            <div className="text-danger">{errors && <small>{errors.bill}</small>}</div>
           </div>
 
           <div className="d-grid gap-2 mt-3">
